@@ -6,4 +6,8 @@ jobs:
             steps:
                 - name: output github issues
                   run: |
-                     echo ${{ toJSON(github.event) }}
+                    echo ${{ toJSON(github.event) }}
+                - name: Cleanup
+                  if: always()
+                  run: |
+                    echo "::notice::Running cleanup"
