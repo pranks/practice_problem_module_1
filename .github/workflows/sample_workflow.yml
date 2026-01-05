@@ -1,0 +1,60 @@
+name: practice problem deployment 
+on: [push, workflow_disptach ]
+jobs:
+    lint:
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout code
+              uses: actions/checkout@v6
+            - name: install node js
+              uses: actions/setup-node@v6
+              with:
+                node-version: 18
+            - name: Install Dependencies
+              run: npm ci
+            - name: lint
+              run: npm run lint
+    Test:
+        needs: [lint]
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout code
+              uses: actions/checkout@v6
+            - name: install node js
+              uses: actions/setup-node@v6
+              with:
+                node-version: 18
+            - name: Install Dependencies
+              run: npm ci
+            - name: Test
+              run: npm run test
+    Build:
+        needs: Test
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout code
+              uses: actions/checkout@v6
+            - name: install node js
+              uses: actions/setup-node@v6
+              with:
+                node-version: 18
+            - name: Install Dependencies
+              run: npm ci
+            - name: build
+              run: npm run build
+    Deploy:
+        needs: Build
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout code
+              uses: actions/checkout@v6
+            - name: install node js
+              uses: actions/setup-node@v6
+              with:
+                node-version: 18
+            - name: Install Dependencies
+              run: npm ci
+            - name: deploy
+              run: echo "deploying"
+
+
